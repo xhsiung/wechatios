@@ -6,14 +6,16 @@
 	</js-module>
 
 	<platform name="ios">
-		<framework src="SwiftyJSON" type="podspec" spec="~> 3.1.4"/>
-
 		<config-file target="config.xml" parent="/*">
 	    		<feature name="WeChat">
 				<param name="ios-package" value="WeChat" />
 	    		</feature>
 		</config-file>
 		<source-file src="src/ios/WeChat.swift" />
+		
+		<framework src="SwiftyJSON" type="podspec" spec="~> 3.1.4"/>
+		<framework src="Alamofire" type="podspec" spec="~> 4.4"/>
+		<framework src="Socket.IO-Client-Swift" type="podspec" spec="~> 8.3.3"/>
 	</platform>
 
 </plugin>
