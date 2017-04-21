@@ -1,42 +1,45 @@
+
 @objc(WeChat) class WeChat : CDVPlugin {
-  @objc(echo:)
-  func echo(command: CDVInvokedUrlCommand) {
-    var pluginResult = CDVPluginResult(
-      status: CDVCommandStatus_ERROR
-    )
-
-    let msg = command.arguments[0] as? String ?? ""
-
-    if msg.characters.count > 0 {
-      let toastController: UIAlertController =
-        UIAlertController(
-          title: "",
-          message: msg,
-          preferredStyle: .alert
-        )
-      
-      self.viewController?.present(
-        toastController,
-        animated: true,
-        completion: nil
-      )
-
-      DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-        toastController.dismiss(
-          animated: true,
-          completion: nil
-        )
-      }
-        
-      pluginResult = CDVPluginResult(
-        status: CDVCommandStatus_OK,
-        messageAs: msg
-      )
+    //init process
+    override func pluginInitialize(){
+        print("init pluginInitialize")
+    }
+    
+    //start
+    @objc(start:)
+    func start(_ command: CDVInvokedUrlCommand) {
+        print("WeChat Start")
     }
 
-    self.commandDelegate!.send(
-      pluginResult,
-      callbackId: command.callbackId
-    )
-  }
+
+    //echo
+    @objc(echo:)
+    func echo(command: CDVInvokedUrlCommand) {
+      var pluginResult = CDVPluginResult(
+        status: CDVCommandStatus_ERROR
+      )
+
+     let obj = command.arguments[0] as? Dictionary ?? [:]
+     if obj.count == 0 {
+          self.commandDelegate!.send(
+                pluginResult,
+                callbackId: command.callbackId
+          )
+
+          //exit process 
+          return;
+      }
+    
+      pluginResult = CDVPluginResult(
+          status: CDVCommandStatus_OK,
+          messageAs: obj
+      )
+       
+            
+      self.commandDelegate!.send(
+          pluginResult,
+          callbackId: command.callbackId
+      )
+   }
+
 }

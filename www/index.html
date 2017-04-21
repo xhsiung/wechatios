@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+            <meta name="format-detection" content="telephone=no">
+            <meta name="msapplication-tap-highlight" content="no">
+            <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+            <title>WeChat</title>
+</head>
+
+<body>
+<BR>
+<div class="app">
+    <div id="deviceready" class="blink">
+        <p class="event listening">Connecting to Device</p>
+        <p class="event received">Device is Ready</p>
+    </div>
+</div>
+<button type="button" onclick="myalert()">myalert</button>
+ 
+ 
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+            window.addEventListener("wechatevent", OnEBusEvent, false);
+    };
+    function OnEBusEvent( obj ){  //JSONObject
+        console.log("OnEBusEvent")
+    };
+    
+    
+    //custom
+    function myalert(){
+        var obj = { name:"alex" , mobile:"0938058318" , name2:"alex2" };
+        wechat.echo( obj ,
+            function(){
+                alert("success");
+            },
+            function(){
+                alert("error");
+        });
+    }
+</script>
+</body>
+</html>
